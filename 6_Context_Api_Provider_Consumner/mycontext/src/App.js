@@ -49,7 +49,7 @@
 
 //   //using destructing method we access that variables values
 //   const {user,age,email,loc}=useContext(userContext);
-  
+
 //   return(
 //     <>
 //     <p>welcome {user}</p>
@@ -77,7 +77,7 @@
 
 //     <Navbar/>
 //     <FirstName.Provider value={{ name: 'mahi', city: 'India', age: 23  }}>
-        
+
 //         <Data/>
 //     </FirstName.Provider>
 
@@ -105,7 +105,7 @@
 //     return(
 //       <div>      
 //           <h1>mahesh</h1>
-          
+
 //       </div>
 //     )
 //   }
@@ -146,7 +146,7 @@
 //   //creating hook
 //   const[user,setUser]=useState({email:""})
 
-//   const[Employee,setEmp]=useState([]);  //passing empty array to initial-state i.e. Employee-variable
+//   const[Employee,setEmp]=useState([]);  //these hook created for to stored all json data from data.json hence emty array
 
 //   //crating hook called useEffect
 //     useEffect(()=>{
@@ -154,7 +154,7 @@
 //     },[]);
 
 
-//     //calling function which pass as props in Login.jsx
+//     //creating function which called from Login.jsx which passed argument datta: email & password
 //     const loginUserFn=(details)=>{
 //       if(details.email==loginUser.username && details.password==loginUser.password)
 //       {
@@ -171,7 +171,7 @@
 
 //   return(
 //     <div className="App">
-//       {user.email?(
+//       {user.email?(      //here used ternary operator : "condition:exp1?exp"
 //           <div className="container">
 //           <h1>welcome to Employee list page</h1>
 //           <table border={5} cellPadding={20} >
@@ -184,9 +184,9 @@
 //                 <td>Email</td>
 //                 <td>Phone</td>
 //               </tr>
-//             {datas.user.map((usesr,id)=>{
-//                 return(
-//                   <tr key={id}>
+//             {datas.user.map((usesr,id)=>{  //from login.jsx we accessing datas stroing all data : datas.user.map((user,id))
+//                 return(                                          //whr .user: is actual object name,& user: referene id is:Id                              
+//                   <tr key={id}>  
 //                     <td>{user.id}</td>
 //                     <td>{user.name}</td>
 //                     <td>{user.age}</td>
@@ -204,81 +204,83 @@
 // </div>
 //   );
 //     }
-  
+
 // export default App;
 
 
 
 
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useEffect } from 'react';
-import Login from './Login'
+import Login from './Login';
 import datas from "./data";
-import "./App.css"
+import "./App.css";
+  
 function App() {
-    const loginUser={
-        username:"admin@gmail.com",
-        password:"admin123"
+    const loginUser = {
+        username: "admin@gmail.com",
+        password: "admin123"
     }
-    const [user,setUser]=useState({email:""});
-//eslint-disable-next-line
-    const [Employees,setEmps]=useState([]);
+
+    const [user, setUser] = useState({ email: "" });
+    //eslint-disable-next-line
+    const [Employees, setEmps] = useState([]);
 
 
-    useEffect(()=>{
-        setEmps(datas)
-    },[]);
+    useEffect(() => {
+        setEmps((datas))
+    }, []);
 
 
-    const loginUserFn=(details)=>{
-        if(
-            details.email===loginUser.username&&
-            details.password===loginUser.password){
+    const loginUserFn = (details) => {
+        if (
+            details.email === loginUser.username &&
+            details.password === loginUser.password) {
             setUser({
-                    email:details.email,
-                } );
-                console.log(user)
-        }else{
+                email: details.email,
+            });
+            console.log(user)
+        } else {
             alert("Invalid Credentials.Kindly Check username or password")
         }
     }
 
-  return (
-    <div className="App">
-        {user.email?(
-            <div className="container">
-            <h1>Welcome To Employee List data_page</h1>
-            <table border={5} cellPadding={20}>
-                <tbody>
-                    <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Age</td>
-                        <td>Gender</td>
-                        <td>Email</td>
-                        <td>Phone</td>
-                    </tr>
-                    {datas.user.map((user,idx)=>{
-                        return (
-                            <tr key={idx}>
-                            <td>{user.id}</td>
-                            <td>{user.name}</td>
-                            <td>{user.age}</td>
-                            <td>{user.gender}</td>
-                            <td>{user.email}</td>
-                            <td>{user.phone}</td>
+    return (
+        <div className="App">
+            {user.email ? (
+                <div className="container">
+                    <h1>Welcome To Employee List data_page</h1>
+                    <table border={5} cellPadding={20}>
+                        <tbody>
+                            <tr>
+                                <td>ID</td>
+                                <td>Name</td>
+                                <td>Age</td>
+                                <td>Gender</td>
+                                <td>Email</td>
+                                <td>Phone</td>
                             </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-            </div>
-        ):(
-            <Login loginUserFn={loginUserFn} errors={alert}/>
-        )}
-    </div>
+                            {datas.user.map((user, idx) => {
+                                return (
+                                    <tr key={idx}>
+                                        <td>{user.id}</td>
+                                        <td>{user.name}</td>
+                                        <td>{user.age}</td>
+                                        <td>{user.gender}</td>
+                                        <td>{user.email}</td>
+                                        <td>{user.phone}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            ) : (
+                <Login loginUserFn={loginUserFn} errors={alert} />
+            )}
+        </div>
     );
-    }
+}
 
 
 
